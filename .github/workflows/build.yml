@@ -58,18 +58,8 @@ jobs:
     - name: Configuration Customization - Build_${{ matrix.target }}
       run: |
         cd openwrt
-        make defconfig
-        
-        TARGET_ARCH=$(echo ${{ matrix.target }} | cut -d'_' -f1)
-        TARGET_SUBTARGET=$(echo ${{ matrix.target }} | cut -d'_' -f2)
-        
-        # 删除现有的目标配置并设置新的目标
-        sed -i "/^CONFIG_TARGET_/d" .config
-        echo "CONFIG_TARGET_${TARGET_ARCH}=y" >> .config
-        if [ -n "$TARGET_SUBTARGET" ] && [ "$TARGET_SUBTARGET" != "$TARGET_ARCH" ]; then
-          echo "CONFIG_TARGET_${TARGET_ARCH}_${TARGET_SUBTARGET}=y" >> .config
-        fi
-        
+        make defconfig TARGET=${{ matrix.target }} PROFILE=all
+
         # 启用 Image Builder 和 SDK (删除已存在的配置避免冲突)
         sed -i "/^CONFIG_IB=/d" .config
         sed -i "/^CONFIG_SDK=/d" .config
