@@ -2,6 +2,15 @@ name: Build
 
 # Add a button to trigger the workflow
 on: 
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - 'README.md'
   repository_dispatch:
   workflow_dispatch:
 
