@@ -1,0 +1,96 @@
+name: Build
+
+# Add a button to trigger the workflow
+on: 
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64
+          - ramips_mt7621
+          - ath79_generic
+          - ipq40xx_generic
+          - bcm27xx_bcm2711
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        set +e
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf \
+          /usr/share/dotnet \
+          /usr/local/lib/android \
+          /opt/ghc \
+          /etc/mysql \
+          /etc/php \
+          /etc/php \
+          /usr/local/.ghcup \
+          /opt/hostedtoolcache/CodeQL \
+          /usr/local/share/boost
+
+        sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
+        sudo -E apt-get update
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev qemu-img
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+
+    - name: Clone source code
+      run: |
+        git clone --depth 1 https://github.com/coolsnowwolf/lede -b master openwrt
+        
+    - name: Update & Install feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+    - name: Configuration Customization - Build_${{ matrix.target }}
+      run: |
+        cd openwrt
+        make defconfig
+        
+        TARGET_ARCH=$(echo ${{ matrix.target }} | cut -d'_' -f1)
+        TARGET_SUBTARGET=$(echo ${{ matrix.target }} | cut -d'_' -f2)
+        
+        # 删除现有的目标配置并设置新的目标
+        sed -i "/^CONFIG_TARGET_/d" .config
+        echo "CONFIG_TARGET_${TARGET_ARCH}=y" >> .config
+        if [ -n "$TARGET_SUBTARGET" ] && [ "$TARGET_SUBTARGET" != "$TARGET_ARCH" ]; then
+          echo "CONFIG_TARGET_${TARGET_ARCH}_${TARGET_SUBTARGET}=y" >> .config
+        fi
+        
+        # 启用 Image Builder 和 SDK (删除已存在的配置避免冲突)
+        sed -i "/^CONFIG_IB=/d" .config
+        sed -i "/^CONFIG_SDK=/d" .config
+        echo "CONFIG_IB=y" >> .config
+        echo "CONFIG_SDK=y" >> .config
+        
+    - name: Download package
+      working-directory: ./openwrt
+      run: |
+        make download -j$(nproc)
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    - name: Build firmware
+      working-directory: ./openwrt
+      run: |
+        echo -e "$(nproc) thread build."
+        make -j$(nproc) V=s
+
+    - name : Upload artifact
+      uses: actions/upload-artifact@main
+      with:
+        name: OpenWrt-${{ matrix.target }}
+        path: openwrt/bin
