@@ -12,10 +12,10 @@ jobs:
       matrix:
         target:
           - x86_64
-          - ramips_mt7621
-          - ath79_generic
-          - ipq40xx_generic
-          - bcm27xx_bcm2711
+          # - ramips_mt7621
+          # - ath79_generic
+          # - ipq40xx_generic
+          # - bcm27xx_bcm2711
 
     steps:
     - name: Checkout
