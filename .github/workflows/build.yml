@@ -18,284 +18,96 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target:
-          # - allwinner
-          # - amlogic
-          # - apm821xx
-          # - arc770
-          # - archs38
-          # - armsr
-          # - at91
-          # - ath25
-          # - ath79
-          # - bcm27xx
-          # - bcm47xx
-          # - bcm4908
-          # - bcm53xx
-          # - bcm63xx
-          # - gemini
-          # - imx
-          # - ipq40xx
-          # - ipq806x
-          # - kirkwood
-          # - lantiq
-          # - layerscape
-          # - loongarch64
-          # - malta
-          # - mediatek
-          # - mpc85xx
-          # - mvebu
-          # - mxs
-          # - octeon
-          # - octeontx
-          # - omap
-          # - oxnas
-          # - phytium
-          # - pistachio
-          # - qualcommax
-          # - ramips
-          # - realtek
-          # - rockchip
-          # - sifiveu
-          # - silicon
-          # - starfive
-          # - stm32
-          # - sunxi
-          # - tegra
-          - x86
-          # - zynq
-        subtarget:
-        #   - generic
-        #   - legacy
-        #   - mikrotik
-        #   - nand
-        #   - sata
-        #   - tiny
-        #   - bcm2708
-        #   - bcm2709
-        #   - bcm2710
-        #   - bcm2711
-        #   - bcm2712
-        #   - mips74k
-        #   - smp
-        #   - ase
-        #   - xrx200
-        #   - xway
-        #   - xway_legacy
-        #   - armv7
-        #   - armv8
-        #   - armv8_64b
-        #   - be
-        #   - filogic
-        #   - mt7622
-        #   - mt7623
-        #   - mt7629
-        #   - p1010
-        #   - p1020
-        #   - p2020
-        #   - cortexa53
-        #   - cortexa72
-        #   - cortexa9
-        #   - ox820
-        #   - e2000
-        #   - phytiumpi
-        #   - ipq50xx
-        #   - ipq60xx
-        #   - ipq807x
-        #   - mt7620
-        #   - mt7621
-        #   - mt76x8
-        #   - rt288x
-        #   - rt305x
-        #   - rt3883
-        #   - rtl838x
-        #   - rtl839x
-        #   - rtl930x
-        #   - rtl931x
-        #   - stm32mp1
-        #   - cortexa8
-        #   - 64
-        #   - geode
-        # include:
-        #   # 特定的 target/subtarget 组合
-        #   - target: allwinner
-        #     subtarget: generic
-        #   - target: amlogic
-        #     subtarget: meson8b
-        #   - target: amlogic
-        #     subtarget: mesongx
-        #   - target: apm821xx
-        #     subtarget: nand
-        #   - target: apm821xx
-        #     subtarget: sata
-        #   - target: arc770
-        #     subtarget: generic
-        #   - target: archs38
-        #     subtarget: generic
-        #   - target: armsr
-        #     subtarget: armv7
-        #   - target: armsr
-        #     subtarget: armv8
-        #   - target: at91
-        #     subtarget: sam9x
-        #   - target: at91
-        #     subtarget: sama5
-        #   - target: ath25
-        #     subtarget: generic
-        #   - target: ath79
-        #     subtarget: generic
-        #   - target: ath79
-        #     subtarget: mikrotik
-        #   - target: ath79
-        #     subtarget: nand
-        #   - target: ath79
-        #     subtarget: tiny
-        #   - target: bcm27xx
-        #     subtarget: bcm2708
-        #   - target: bcm27xx
-        #     subtarget: bcm2709
-        #   - target: bcm27xx
-        #     subtarget: bcm2710
-        #   - target: bcm27xx
-        #     subtarget: bcm2711
-        #   - target: bcm27xx
-        #     subtarget: bcm2712
-        #   - target: bcm47xx
-        #     subtarget: generic
-        #   - target: bcm47xx
-        #     subtarget: legacy
-        #   - target: bcm47xx
-        #     subtarget: mips74k
-        #   - target: bcm4908
-        #     subtarget: generic
-        #   - target: bcm53xx
-        #     subtarget: generic
-        #   - target: bcm63xx
-        #     subtarget: generic
-        #   - target: bcm63xx
-        #     subtarget: smp
-        #   - target: gemini
-        #     subtarget: generic
-        #   - target: imx
-        #     subtarget: cortexa7
-        #   - target: imx
-        #     subtarget: cortexa9
-        #   - target: ipq40xx
-        #     subtarget: generic
-        #   - target: ipq40xx
-        #     subtarget: mikrotik
-        #   - target: ipq806x
-        #     subtarget: generic
-        #   - target: kirkwood
-        #     subtarget: generic
-        #   - target: lantiq
-        #     subtarget: ase
-        #   - target: lantiq
-        #     subtarget: xrx200
-        #   - target: lantiq
-        #     subtarget: xway
-        #   - target: lantiq
-        #     subtarget: xway_legacy
-        #   - target: layerscape
-        #     subtarget: armv7
-        #   - target: layerscape
-        #     subtarget: armv8_64b
-        #   - target: loongarch64
-        #     subtarget: generic
-        #   - target: malta
-        #     subtarget: be
-        #   - target: mediatek
-        #     subtarget: filogic
-        #   - target: mediatek
-        #     subtarget: mt7622
-        #   - target: mediatek
-        #     subtarget: mt7623
-        #   - target: mediatek
-        #     subtarget: mt7629
-        #   - target: mpc85xx
-        #     subtarget: p1010
-        #   - target: mpc85xx
-        #     subtarget: p1020
-        #   - target: mpc85xx
-        #     subtarget: p2020
-        #   - target: mvebu
-        #     subtarget: cortexa53
-        #   - target: mvebu
-        #     subtarget: cortexa72
-        #   - target: mvebu
-        #     subtarget: cortexa9
-        #   - target: mxs
-        #     subtarget: generic
-        #   - target: octeon
-        #     subtarget: generic
-        #   - target: octeontx
-        #     subtarget: generic
-        #   - target: omap
-        #     subtarget: generic
-        #   - target: oxnas
-        #     subtarget: ox820
-        #   - target: phytium
-        #     subtarget: armv8
-        #   - target: phytium
-        #     subtarget: e2000
-        #   - target: phytium
-        #     subtarget: phytiumpi
-        #   - target: pistachio
-        #     subtarget: generic
-        #   - target: qualcommax
-        #     subtarget: ipq50xx
-        #   - target: qualcommax
-        #     subtarget: ipq60xx
-        #   - target: qualcommax
-        #     subtarget: ipq807x
-        #   - target: ramips
-        #     subtarget: mt7620
-        #   - target: ramips
-        #     subtarget: mt7621
-        #   - target: ramips
-        #     subtarget: mt76x8
-        #   - target: ramips
-        #     subtarget: rt288x
-        #   - target: ramips
-        #     subtarget: rt305x
-        #   - target: ramips
-        #     subtarget: rt3883
-        #   - target: realtek
-        #     subtarget: rtl838x
-        #   - target: realtek
-        #     subtarget: rtl839x
-        #   - target: realtek
-        #     subtarget: rtl930x
-        #   - target: realtek
-        #     subtarget: rtl931x
-        #   - target: rockchip
-        #     subtarget: armv8
-        #   - target: sifiveu
-        #     subtarget: generic
-        #   - target: silicon
-        #     subtarget: armv8
-        #   - target: starfive
-        #     subtarget: generic
-        #   - target: stm32
-        #     subtarget: stm32mp1
-        #   - target: sunxi
-        #     subtarget: cortexa53
-        #   - target: sunxi
-        #     subtarget: cortexa7
-        #   - target: sunxi
-        #     subtarget: cortexa8
-        #   - target: tegra
-        #     subtarget: generic
-          - target: x86
-            subtarget: 64
-          # - target: x86
-          #   subtarget: generic
-          # - target: x86
-          #   subtarget: geode
-          # - target: x86
-          #   subtarget: legacy
-          # - target: zynq
-          #   subtarget: generic
+        full_target:
+          # - allwinner_generic
+          # - amlogic_meson8b
+          # - amlogic_mesongx
+          # - apm821xx_nand
+          # - apm821xx_sata
+          # - arc770_generic
+          # - archs38_generic
+          # - armsr_armv7
+          # - armsr_armv8
+          # - at91_sam9x
+          # - at91_sama5
+          # - ath25_generic
+          # - ath79_generic
+          # - ath79_mikrotik
+          # - ath79_nand
+          # - ath79_tiny
+          # - bcm27xx_bcm2708
+          # - bcm27xx_bcm2709
+          # - bcm27xx_bcm2710
+          # - bcm27xx_bcm2711
+          # - bcm27xx_bcm2712
+          # - bcm47xx_generic
+          # - bcm47xx_legacy
+          # - bcm47xx_mips74k
+          # - bcm4908_generic
+          # - bcm53xx_generic
+          # - bcm63xx_generic
+          # - bcm63xx_smp
+          # - gemini_generic
+          # - imx_cortexa7
+          # - imx_cortexa9
+          # - ipq40xx_generic
+          # - ipq40xx_mikrotik
+          # - ipq806x_generic
+          # - kirkwood_generic
+          # - lantiq_ase
+          # - lantiq_xrx200
+          # - lantiq_xway
+          # - lantiq_xway_legacy
+          # - layerscape_armv7
+          # - layerscape_armv8_64b
+          # - loongarch64_generic
+          # - malta_be
+          # - mediatek_filogic
+          # - mediatek_mt7622
+          # - mediatek_mt7623
+          # - mediatek_mt7629
+          # - mpc85xx_p1010
+          # - mpc85xx_p1020
+          # - mpc85xx_p2020
+          # - mvebu_cortexa53
+          # - mvebu_cortexa72
+          # - mvebu_cortexa9
+          # - mxs_generic
+          # - octeon_generic
+          # - octeontx_generic
+          # - omap_generic
+          # - oxnas_ox820
+          # - phytium_armv8
+          # - phytium_e2000
+          # - phytium_phytiumpi
+          # - pistachio_generic
+          # - qualcommax_ipq50xx
+          # - qualcommax_ipq60xx
+          # - qualcommax_ipq807x
+          # - ramips_mt7620
+          # - ramips_mt7621
+          # - ramips_mt76x8
+          # - ramips_rt288x
+          # - ramips_rt305x
+          # - ramips_rt3883
+          # - realtek_rtl838x
+          # - realtek_rtl839x
+          # - realtek_rtl930x
+          # - realtek_rtl931x
+          # - rockchip_armv8
+          # - sifiveu_generic
+          # - silicon_armv8
+          # - starfive_generic
+          # - stm32_stm32mp1
+          # - sunxi_cortexa53
+          # - sunxi_cortexa7
+          # - sunxi_cortexa8
+          # - tegra_generic
+          - x86_64
+          # - x86_generic
+          # - x86_geode
+          # - x86_legacy
+          # - zynq_generic
 
     steps:
     - name: Checkout
@@ -325,6 +137,9 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
+        echo "${{ matrix.full_target }}" | cut -d'_' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.full_target }}" | cut -d'_' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
+
     - name: Clone
       run: |
         git clone --depth 1 https://github.com/coolsnowwolf/lede -b master openwrt
@@ -340,8 +155,8 @@ jobs:
         cd openwrt
         
         # 设置 target 和 subtarget（非交互式）
-        echo "CONFIG_TARGET_${{ matrix.target }}=y" > .config
-        echo "CONFIG_TARGET_${{ matrix.target }}_${{ matrix.subtarget }}=y" >> .config
+        echo "CONFIG_TARGET_${TARGET}=y" > .config
+        echo "CONFIG_TARGET_${TARGET}_${SUBTARGET}=y" >> .config
         echo "CONFIG_IB=y" >> .config
         echo "CONFIG_SDK=y" >> .config
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
