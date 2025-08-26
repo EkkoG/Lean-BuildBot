@@ -188,6 +188,6 @@ jobs:
       with:
         flags: '-ahvHP'
         src: 'openwrt/bin/'
-        dest: '${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/lean-build/snapshot/'
+        dest: '${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/snapshot/'
       env:
         DEPLOY_KEY: ${{ secrets.SF_KEY }}
