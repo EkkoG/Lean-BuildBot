@@ -19,95 +19,95 @@ jobs:
       fail-fast: false
       matrix:
         full_target:
-          # - allwinner_generic
-          # - amlogic_meson8b
-          # - amlogic_mesongx
-          # - apm821xx_nand
-          # - apm821xx_sata
-          # - arc770_generic
-          # - archs38_generic
-          # - armsr_armv7
-          # - armsr_armv8
-          # - at91_sam9x
-          # - at91_sama5
-          # - ath25_generic
-          # - ath79_generic
-          # - ath79_mikrotik
-          # - ath79_nand
-          # - ath79_tiny
-          # - bcm27xx_bcm2708
-          # - bcm27xx_bcm2709
-          # - bcm27xx_bcm2710
-          # - bcm27xx_bcm2711
-          # - bcm27xx_bcm2712
-          # - bcm47xx_generic
-          # - bcm47xx_legacy
-          # - bcm47xx_mips74k
-          # - bcm4908_generic
-          # - bcm53xx_generic
-          # - bcm63xx_generic
-          # - bcm63xx_smp
-          # - gemini_generic
-          # - imx_cortexa7
-          # - imx_cortexa9
-          # - ipq40xx_generic
-          # - ipq40xx_mikrotik
-          # - ipq806x_generic
-          # - kirkwood_generic
-          # - lantiq_ase
-          # - lantiq_xrx200
-          # - lantiq_xway
-          # - lantiq_xway_legacy
-          # - layerscape_armv7
-          # - layerscape_armv8_64b
-          # - loongarch64_generic
-          # - malta_be
-          # - mediatek_filogic
-          # - mediatek_mt7622
-          # - mediatek_mt7623
-          # - mediatek_mt7629
-          # - mpc85xx_p1010
-          # - mpc85xx_p1020
-          # - mpc85xx_p2020
-          # - mvebu_cortexa53
-          # - mvebu_cortexa72
-          # - mvebu_cortexa9
-          # - mxs_generic
-          # - octeon_generic
-          # - octeontx_generic
-          # - omap_generic
-          # - oxnas_ox820
-          # - phytium_armv8
-          # - phytium_e2000
-          # - phytium_phytiumpi
-          # - pistachio_generic
-          # - qualcommax_ipq50xx
-          # - qualcommax_ipq60xx
-          # - qualcommax_ipq807x
-          # - ramips_mt7620
-          # - ramips_mt7621
-          # - ramips_mt76x8
-          # - ramips_rt288x
-          # - ramips_rt305x
-          # - ramips_rt3883
-          # - realtek_rtl838x
-          # - realtek_rtl839x
-          # - realtek_rtl930x
-          # - realtek_rtl931x
-          - rockchip_armv8
-          # - sifiveu_generic
-          # - silicon_armv8
-          # - starfive_generic
-          # - stm32_stm32mp1
-          # - sunxi_cortexa53
-          # - sunxi_cortexa7
-          # - sunxi_cortexa8
-          # - tegra_generic
-          - x86_64
-          # - x86_generic
-          # - x86_geode
-          # - x86_legacy
-          # - zynq_generic
+          # - allwinner/generic
+          # - amlogic/meson8b
+          # - amlogic/mesongx
+          # - apm821xx/nand
+          # - apm821xx/sata
+          # - arc770/generic
+          # - archs38/generic
+          # - armsr/armv7
+          # - armsr/armv8
+          # - at91/sam9x
+          # - at91/sama5
+          # - ath25/generic
+          # - ath79/generic
+          # - ath79/mikrotik
+          # - ath79/nand
+          # - ath79/tiny
+          # - bcm27xx/bcm2708
+          # - bcm27xx/bcm2709
+          # - bcm27xx/bcm2710
+          # - bcm27xx/bcm2711
+          # - bcm27xx/bcm2712
+          # - bcm47xx/generic
+          # - bcm47xx/legacy
+          # - bcm47xx/mips74k
+          # - bcm4908/generic
+          # - bcm53xx/generic
+          # - bcm63xx/generic
+          # - bcm63xx/smp
+          # - gemini/generic
+          # - imx/cortexa7
+          # - imx/cortexa9
+          # - ipq40xx/generic
+          # - ipq40xx/mikrotik
+          # - ipq806x/generic
+          # - kirkwood/generic
+          # - lantiq/ase
+          # - lantiq/xrx200
+          # - lantiq/xway
+          # - lantiq/xway_legacy
+          # - layerscape/armv7
+          # - layerscape/armv8_64b
+          # - loongarch64/generic
+          # - malta/be
+          # - mediatek/filogic
+          # - mediatek/mt7622
+          # - mediatek/mt7623
+          # - mediatek/mt7629
+          # - mpc85xx/p1010
+          # - mpc85xx/p1020
+          # - mpc85xx/p2020
+          # - mvebu/cortexa53
+          # - mvebu/cortexa72
+          # - mvebu/cortexa9
+          # - mxs/generic
+          # - octeon/generic
+          # - octeontx/generic
+          # - omap/generic
+          # - oxnas/ox820
+          # - phytium/armv8
+          # - phytium/e2000
+          # - phytium/phytiumpi
+          # - pistachio/generic
+          # - qualcommax/ipq50xx
+          # - qualcommax/ipq60xx
+          # - qualcommax/ipq807x
+          # - ramips/mt7620
+          # - ramips/mt7621
+          # - ramips/mt76x8
+          # - ramips/rt288x
+          # - ramips/rt305x
+          # - ramips/rt3883
+          # - realtek/rtl838x
+          # - realtek/rtl839x
+          # - realtek/rtl930x
+          # - realtek/rtl931x
+          # - rockchip/armv8
+          # - sifiveu/generic
+          # - silicon/armv8
+          # - starfive/generic
+          # - stm32/stm32mp1
+          # - sunxi/cortexa53
+          # - sunxi/cortexa7
+          # - sunxi/cortexa8
+          # - tegra/generic
+          - x86/64
+          # - x86/generic
+          # - x86/geode
+          # - x86/legacy
+          # - zynq/generic
 
     steps:
     - name: Checkout
@@ -137,8 +137,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
-        echo "${{ matrix.full_target }}" | cut -d'_' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
-        echo "${{ matrix.full_target }}" | cut -d'_' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.full_target }}" | cut -d'/' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.full_target }}" | cut -d'/' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
 
     - name: Clone
       run: |
