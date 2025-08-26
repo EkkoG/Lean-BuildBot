@@ -94,7 +94,7 @@ jobs:
           # - realtek/rtl839x
           # - realtek/rtl930x
           # - realtek/rtl931x
-          # - rockchip/armv8
+          - rockchip/armv8
           # - sifiveu/generic
           # - silicon/armv8
           # - starfive/generic
