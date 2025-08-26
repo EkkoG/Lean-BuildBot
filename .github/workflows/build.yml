@@ -65,237 +65,237 @@ jobs:
           - x86
           # - zynq
         subtarget:
-          - generic
-          - legacy
-          - mikrotik
-          - nand
-          - sata
-          - tiny
-          - bcm2708
-          - bcm2709
-          - bcm2710
-          - bcm2711
-          - bcm2712
-          - mips74k
-          - smp
-          - ase
-          - xrx200
-          - xway
-          - xway_legacy
-          - armv7
-          - armv8
-          - armv8_64b
-          - be
-          - filogic
-          - mt7622
-          - mt7623
-          - mt7629
-          - p1010
-          - p1020
-          - p2020
-          - cortexa53
-          - cortexa72
-          - cortexa9
-          - ox820
-          - e2000
-          - phytiumpi
-          - ipq50xx
-          - ipq60xx
-          - ipq807x
-          - mt7620
-          - mt7621
-          - mt76x8
-          - rt288x
-          - rt305x
-          - rt3883
-          - rtl838x
-          - rtl839x
-          - rtl930x
-          - rtl931x
-          - stm32mp1
-          - cortexa8
-          - 64
-          - geode
-        include:
-          # 特定的 target/subtarget 组合
-          - target: allwinner
-            subtarget: generic
-          - target: amlogic
-            subtarget: meson8b
-          - target: amlogic
-            subtarget: mesongx
-          - target: apm821xx
-            subtarget: nand
-          - target: apm821xx
-            subtarget: sata
-          - target: arc770
-            subtarget: generic
-          - target: archs38
-            subtarget: generic
-          - target: armsr
-            subtarget: armv7
-          - target: armsr
-            subtarget: armv8
-          - target: at91
-            subtarget: sam9x
-          - target: at91
-            subtarget: sama5
-          - target: ath25
-            subtarget: generic
-          - target: ath79
-            subtarget: generic
-          - target: ath79
-            subtarget: mikrotik
-          - target: ath79
-            subtarget: nand
-          - target: ath79
-            subtarget: tiny
-          - target: bcm27xx
-            subtarget: bcm2708
-          - target: bcm27xx
-            subtarget: bcm2709
-          - target: bcm27xx
-            subtarget: bcm2710
-          - target: bcm27xx
-            subtarget: bcm2711
-          - target: bcm27xx
-            subtarget: bcm2712
-          - target: bcm47xx
-            subtarget: generic
-          - target: bcm47xx
-            subtarget: legacy
-          - target: bcm47xx
-            subtarget: mips74k
-          - target: bcm4908
-            subtarget: generic
-          - target: bcm53xx
-            subtarget: generic
-          - target: bcm63xx
-            subtarget: generic
-          - target: bcm63xx
-            subtarget: smp
-          - target: gemini
-            subtarget: generic
-          - target: imx
-            subtarget: cortexa7
-          - target: imx
-            subtarget: cortexa9
-          - target: ipq40xx
-            subtarget: generic
-          - target: ipq40xx
-            subtarget: mikrotik
-          - target: ipq806x
-            subtarget: generic
-          - target: kirkwood
-            subtarget: generic
-          - target: lantiq
-            subtarget: ase
-          - target: lantiq
-            subtarget: xrx200
-          - target: lantiq
-            subtarget: xway
-          - target: lantiq
-            subtarget: xway_legacy
-          - target: layerscape
-            subtarget: armv7
-          - target: layerscape
-            subtarget: armv8_64b
-          - target: loongarch64
-            subtarget: generic
-          - target: malta
-            subtarget: be
-          - target: mediatek
-            subtarget: filogic
-          - target: mediatek
-            subtarget: mt7622
-          - target: mediatek
-            subtarget: mt7623
-          - target: mediatek
-            subtarget: mt7629
-          - target: mpc85xx
-            subtarget: p1010
-          - target: mpc85xx
-            subtarget: p1020
-          - target: mpc85xx
-            subtarget: p2020
-          - target: mvebu
-            subtarget: cortexa53
-          - target: mvebu
-            subtarget: cortexa72
-          - target: mvebu
-            subtarget: cortexa9
-          - target: mxs
-            subtarget: generic
-          - target: octeon
-            subtarget: generic
-          - target: octeontx
-            subtarget: generic
-          - target: omap
-            subtarget: generic
-          - target: oxnas
-            subtarget: ox820
-          - target: phytium
-            subtarget: armv8
-          - target: phytium
-            subtarget: e2000
-          - target: phytium
-            subtarget: phytiumpi
-          - target: pistachio
-            subtarget: generic
-          - target: qualcommax
-            subtarget: ipq50xx
-          - target: qualcommax
-            subtarget: ipq60xx
-          - target: qualcommax
-            subtarget: ipq807x
-          - target: ramips
-            subtarget: mt7620
-          - target: ramips
-            subtarget: mt7621
-          - target: ramips
-            subtarget: mt76x8
-          - target: ramips
-            subtarget: rt288x
-          - target: ramips
-            subtarget: rt305x
-          - target: ramips
-            subtarget: rt3883
-          - target: realtek
-            subtarget: rtl838x
-          - target: realtek
-            subtarget: rtl839x
-          - target: realtek
-            subtarget: rtl930x
-          - target: realtek
-            subtarget: rtl931x
-          - target: rockchip
-            subtarget: armv8
-          - target: sifiveu
-            subtarget: generic
-          - target: silicon
-            subtarget: armv8
-          - target: starfive
-            subtarget: generic
-          - target: stm32
-            subtarget: stm32mp1
-          - target: sunxi
-            subtarget: cortexa53
-          - target: sunxi
-            subtarget: cortexa7
-          - target: sunxi
-            subtarget: cortexa8
-          - target: tegra
-            subtarget: generic
+        #   - generic
+        #   - legacy
+        #   - mikrotik
+        #   - nand
+        #   - sata
+        #   - tiny
+        #   - bcm2708
+        #   - bcm2709
+        #   - bcm2710
+        #   - bcm2711
+        #   - bcm2712
+        #   - mips74k
+        #   - smp
+        #   - ase
+        #   - xrx200
+        #   - xway
+        #   - xway_legacy
+        #   - armv7
+        #   - armv8
+        #   - armv8_64b
+        #   - be
+        #   - filogic
+        #   - mt7622
+        #   - mt7623
+        #   - mt7629
+        #   - p1010
+        #   - p1020
+        #   - p2020
+        #   - cortexa53
+        #   - cortexa72
+        #   - cortexa9
+        #   - ox820
+        #   - e2000
+        #   - phytiumpi
+        #   - ipq50xx
+        #   - ipq60xx
+        #   - ipq807x
+        #   - mt7620
+        #   - mt7621
+        #   - mt76x8
+        #   - rt288x
+        #   - rt305x
+        #   - rt3883
+        #   - rtl838x
+        #   - rtl839x
+        #   - rtl930x
+        #   - rtl931x
+        #   - stm32mp1
+        #   - cortexa8
+        #   - 64
+        #   - geode
+        # include:
+        #   # 特定的 target/subtarget 组合
+        #   - target: allwinner
+        #     subtarget: generic
+        #   - target: amlogic
+        #     subtarget: meson8b
+        #   - target: amlogic
+        #     subtarget: mesongx
+        #   - target: apm821xx
+        #     subtarget: nand
+        #   - target: apm821xx
+        #     subtarget: sata
+        #   - target: arc770
+        #     subtarget: generic
+        #   - target: archs38
+        #     subtarget: generic
+        #   - target: armsr
+        #     subtarget: armv7
+        #   - target: armsr
+        #     subtarget: armv8
+        #   - target: at91
+        #     subtarget: sam9x
+        #   - target: at91
+        #     subtarget: sama5
+        #   - target: ath25
+        #     subtarget: generic
+        #   - target: ath79
+        #     subtarget: generic
+        #   - target: ath79
+        #     subtarget: mikrotik
+        #   - target: ath79
+        #     subtarget: nand
+        #   - target: ath79
+        #     subtarget: tiny
+        #   - target: bcm27xx
+        #     subtarget: bcm2708
+        #   - target: bcm27xx
+        #     subtarget: bcm2709
+        #   - target: bcm27xx
+        #     subtarget: bcm2710
+        #   - target: bcm27xx
+        #     subtarget: bcm2711
+        #   - target: bcm27xx
+        #     subtarget: bcm2712
+        #   - target: bcm47xx
+        #     subtarget: generic
+        #   - target: bcm47xx
+        #     subtarget: legacy
+        #   - target: bcm47xx
+        #     subtarget: mips74k
+        #   - target: bcm4908
+        #     subtarget: generic
+        #   - target: bcm53xx
+        #     subtarget: generic
+        #   - target: bcm63xx
+        #     subtarget: generic
+        #   - target: bcm63xx
+        #     subtarget: smp
+        #   - target: gemini
+        #     subtarget: generic
+        #   - target: imx
+        #     subtarget: cortexa7
+        #   - target: imx
+        #     subtarget: cortexa9
+        #   - target: ipq40xx
+        #     subtarget: generic
+        #   - target: ipq40xx
+        #     subtarget: mikrotik
+        #   - target: ipq806x
+        #     subtarget: generic
+        #   - target: kirkwood
+        #     subtarget: generic
+        #   - target: lantiq
+        #     subtarget: ase
+        #   - target: lantiq
+        #     subtarget: xrx200
+        #   - target: lantiq
+        #     subtarget: xway
+        #   - target: lantiq
+        #     subtarget: xway_legacy
+        #   - target: layerscape
+        #     subtarget: armv7
+        #   - target: layerscape
+        #     subtarget: armv8_64b
+        #   - target: loongarch64
+        #     subtarget: generic
+        #   - target: malta
+        #     subtarget: be
+        #   - target: mediatek
+        #     subtarget: filogic
+        #   - target: mediatek
+        #     subtarget: mt7622
+        #   - target: mediatek
+        #     subtarget: mt7623
+        #   - target: mediatek
+        #     subtarget: mt7629
+        #   - target: mpc85xx
+        #     subtarget: p1010
+        #   - target: mpc85xx
+        #     subtarget: p1020
+        #   - target: mpc85xx
+        #     subtarget: p2020
+        #   - target: mvebu
+        #     subtarget: cortexa53
+        #   - target: mvebu
+        #     subtarget: cortexa72
+        #   - target: mvebu
+        #     subtarget: cortexa9
+        #   - target: mxs
+        #     subtarget: generic
+        #   - target: octeon
+        #     subtarget: generic
+        #   - target: octeontx
+        #     subtarget: generic
+        #   - target: omap
+        #     subtarget: generic
+        #   - target: oxnas
+        #     subtarget: ox820
+        #   - target: phytium
+        #     subtarget: armv8
+        #   - target: phytium
+        #     subtarget: e2000
+        #   - target: phytium
+        #     subtarget: phytiumpi
+        #   - target: pistachio
+        #     subtarget: generic
+        #   - target: qualcommax
+        #     subtarget: ipq50xx
+        #   - target: qualcommax
+        #     subtarget: ipq60xx
+        #   - target: qualcommax
+        #     subtarget: ipq807x
+        #   - target: ramips
+        #     subtarget: mt7620
+        #   - target: ramips
+        #     subtarget: mt7621
+        #   - target: ramips
+        #     subtarget: mt76x8
+        #   - target: ramips
+        #     subtarget: rt288x
+        #   - target: ramips
+        #     subtarget: rt305x
+        #   - target: ramips
+        #     subtarget: rt3883
+        #   - target: realtek
+        #     subtarget: rtl838x
+        #   - target: realtek
+        #     subtarget: rtl839x
+        #   - target: realtek
+        #     subtarget: rtl930x
+        #   - target: realtek
+        #     subtarget: rtl931x
+        #   - target: rockchip
+        #     subtarget: armv8
+        #   - target: sifiveu
+        #     subtarget: generic
+        #   - target: silicon
+        #     subtarget: armv8
+        #   - target: starfive
+        #     subtarget: generic
+        #   - target: stm32
+        #     subtarget: stm32mp1
+        #   - target: sunxi
+        #     subtarget: cortexa53
+        #   - target: sunxi
+        #     subtarget: cortexa7
+        #   - target: sunxi
+        #     subtarget: cortexa8
+        #   - target: tegra
+        #     subtarget: generic
           - target: x86
             subtarget: 64
-          - target: x86
-            subtarget: generic
-          - target: x86
-            subtarget: geode
-          - target: x86
-            subtarget: legacy
-          - target: zynq
-            subtarget: generic
+          # - target: x86
+          #   subtarget: generic
+          # - target: x86
+          #   subtarget: geode
+          # - target: x86
+          #   subtarget: legacy
+          # - target: zynq
+          #   subtarget: generic
 
     steps:
     - name: Checkout
