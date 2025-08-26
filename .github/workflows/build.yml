@@ -5,32 +5,303 @@ on:
   push:
     branches:
       - main
-      - master
     paths-ignore:
       - '**.md'
       - 'LICENSE'
       - '.gitignore'
       - 'README.md'
-  repository_dispatch:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
+      fail-fast: false
       matrix:
         target:
-          - x86_64
-          # - ramips_mt7621
-          # - ath79_generic
-          # - ipq40xx_generic
-          # - bcm27xx_bcm2711
+          # - allwinner
+          # - amlogic
+          # - apm821xx
+          # - arc770
+          # - archs38
+          # - armsr
+          # - at91
+          # - ath25
+          # - ath79
+          # - bcm27xx
+          # - bcm47xx
+          # - bcm4908
+          # - bcm53xx
+          # - bcm63xx
+          # - gemini
+          # - imx
+          # - ipq40xx
+          # - ipq806x
+          # - kirkwood
+          # - lantiq
+          # - layerscape
+          # - loongarch64
+          # - malta
+          # - mediatek
+          # - mpc85xx
+          # - mvebu
+          # - mxs
+          # - octeon
+          # - octeontx
+          # - omap
+          # - oxnas
+          # - phytium
+          # - pistachio
+          # - qualcommax
+          # - ramips
+          # - realtek
+          # - rockchip
+          # - sifiveu
+          # - silicon
+          # - starfive
+          # - stm32
+          # - sunxi
+          # - tegra
+          - x86
+          # - zynq
+        subtarget:
+          - generic
+          - legacy
+          - mikrotik
+          - nand
+          - sata
+          - tiny
+          - bcm2708
+          - bcm2709
+          - bcm2710
+          - bcm2711
+          - bcm2712
+          - mips74k
+          - smp
+          - ase
+          - xrx200
+          - xway
+          - xway_legacy
+          - armv7
+          - armv8
+          - armv8_64b
+          - be
+          - filogic
+          - mt7622
+          - mt7623
+          - mt7629
+          - p1010
+          - p1020
+          - p2020
+          - cortexa53
+          - cortexa72
+          - cortexa9
+          - ox820
+          - e2000
+          - phytiumpi
+          - ipq50xx
+          - ipq60xx
+          - ipq807x
+          - mt7620
+          - mt7621
+          - mt76x8
+          - rt288x
+          - rt305x
+          - rt3883
+          - rtl838x
+          - rtl839x
+          - rtl930x
+          - rtl931x
+          - stm32mp1
+          - cortexa8
+          - 64
+          - geode
+        include:
+          # 特定的 target/subtarget 组合
+          - target: allwinner
+            subtarget: generic
+          - target: amlogic
+            subtarget: meson8b
+          - target: amlogic
+            subtarget: mesongx
+          - target: apm821xx
+            subtarget: nand
+          - target: apm821xx
+            subtarget: sata
+          - target: arc770
+            subtarget: generic
+          - target: archs38
+            subtarget: generic
+          - target: armsr
+            subtarget: armv7
+          - target: armsr
+            subtarget: armv8
+          - target: at91
+            subtarget: sam9x
+          - target: at91
+            subtarget: sama5
+          - target: ath25
+            subtarget: generic
+          - target: ath79
+            subtarget: generic
+          - target: ath79
+            subtarget: mikrotik
+          - target: ath79
+            subtarget: nand
+          - target: ath79
+            subtarget: tiny
+          - target: bcm27xx
+            subtarget: bcm2708
+          - target: bcm27xx
+            subtarget: bcm2709
+          - target: bcm27xx
+            subtarget: bcm2710
+          - target: bcm27xx
+            subtarget: bcm2711
+          - target: bcm27xx
+            subtarget: bcm2712
+          - target: bcm47xx
+            subtarget: generic
+          - target: bcm47xx
+            subtarget: legacy
+          - target: bcm47xx
+            subtarget: mips74k
+          - target: bcm4908
+            subtarget: generic
+          - target: bcm53xx
+            subtarget: generic
+          - target: bcm63xx
+            subtarget: generic
+          - target: bcm63xx
+            subtarget: smp
+          - target: gemini
+            subtarget: generic
+          - target: imx
+            subtarget: cortexa7
+          - target: imx
+            subtarget: cortexa9
+          - target: ipq40xx
+            subtarget: generic
+          - target: ipq40xx
+            subtarget: mikrotik
+          - target: ipq806x
+            subtarget: generic
+          - target: kirkwood
+            subtarget: generic
+          - target: lantiq
+            subtarget: ase
+          - target: lantiq
+            subtarget: xrx200
+          - target: lantiq
+            subtarget: xway
+          - target: lantiq
+            subtarget: xway_legacy
+          - target: layerscape
+            subtarget: armv7
+          - target: layerscape
+            subtarget: armv8_64b
+          - target: loongarch64
+            subtarget: generic
+          - target: malta
+            subtarget: be
+          - target: mediatek
+            subtarget: filogic
+          - target: mediatek
+            subtarget: mt7622
+          - target: mediatek
+            subtarget: mt7623
+          - target: mediatek
+            subtarget: mt7629
+          - target: mpc85xx
+            subtarget: p1010
+          - target: mpc85xx
+            subtarget: p1020
+          - target: mpc85xx
+            subtarget: p2020
+          - target: mvebu
+            subtarget: cortexa53
+          - target: mvebu
+            subtarget: cortexa72
+          - target: mvebu
+            subtarget: cortexa9
+          - target: mxs
+            subtarget: generic
+          - target: octeon
+            subtarget: generic
+          - target: octeontx
+            subtarget: generic
+          - target: omap
+            subtarget: generic
+          - target: oxnas
+            subtarget: ox820
+          - target: phytium
+            subtarget: armv8
+          - target: phytium
+            subtarget: e2000
+          - target: phytium
+            subtarget: phytiumpi
+          - target: pistachio
+            subtarget: generic
+          - target: qualcommax
+            subtarget: ipq50xx
+          - target: qualcommax
+            subtarget: ipq60xx
+          - target: qualcommax
+            subtarget: ipq807x
+          - target: ramips
+            subtarget: mt7620
+          - target: ramips
+            subtarget: mt7621
+          - target: ramips
+            subtarget: mt76x8
+          - target: ramips
+            subtarget: rt288x
+          - target: ramips
+            subtarget: rt305x
+          - target: ramips
+            subtarget: rt3883
+          - target: realtek
+            subtarget: rtl838x
+          - target: realtek
+            subtarget: rtl839x
+          - target: realtek
+            subtarget: rtl930x
+          - target: realtek
+            subtarget: rtl931x
+          - target: rockchip
+            subtarget: armv8
+          - target: sifiveu
+            subtarget: generic
+          - target: silicon
+            subtarget: armv8
+          - target: starfive
+            subtarget: generic
+          - target: stm32
+            subtarget: stm32mp1
+          - target: sunxi
+            subtarget: cortexa53
+          - target: sunxi
+            subtarget: cortexa7
+          - target: sunxi
+            subtarget: cortexa8
+          - target: tegra
+            subtarget: generic
+          - target: x86
+            subtarget: 64
+          - target: x86
+            subtarget: generic
+          - target: x86
+            subtarget: geode
+          - target: x86
+            subtarget: legacy
+          - target: zynq
+            subtarget: generic
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@main
 
-    - name: Initialization environment
+    - name: Initialize environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -50,46 +321,57 @@ jobs:
 
         sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
         sudo -E apt-get update
-        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev qemu-img
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swag texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev qemu-img
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
-    - name: Clone source code
+    - name: Clone
       run: |
         git clone --depth 1 https://github.com/coolsnowwolf/lede -b master openwrt
         
-    - name: Update & Install feeds
+    - name: Update & Install
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-    - name: Configuration Customization - Build_${{ matrix.target }}
+    - name: Configuration
       run: |
         cd openwrt
-        make defconfig TARGET=${{ matrix.target }} PROFILE=all
-
-        # 启用 Image Builder 和 SDK (删除已存在的配置避免冲突)
-        sed -i "/^CONFIG_IB=/d" .config
-        sed -i "/^CONFIG_SDK=/d" .config
+        
+        # 设置 target 和 subtarget（非交互式）
+        echo "CONFIG_TARGET_${{ matrix.target }}=y" > .config
+        echo "CONFIG_TARGET_${{ matrix.target }}_${{ matrix.subtarget }}=y" >> .config
         echo "CONFIG_IB=y" >> .config
         echo "CONFIG_SDK=y" >> .config
+        echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
+        echo "CONFIG_TARGET_ALL_PROFILES=y" >> .config
         
-    - name: Download package
+        # 生成完整的默认配置
+        make defconfig
+
+        cat .config
+
+    - name: Download
       working-directory: ./openwrt
       run: |
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Build firmware
+    - name: Build
       working-directory: ./openwrt
       run: |
         echo -e "$(nproc) thread build."
-        make -j$(nproc) V=s
+        # 使用 -k 参数让 make 在遇到错误时继续构建其他目标
+        # 使用 -i 参数忽略错误继续构建
+        make -j$(nproc) -k -i V=s || true
 
-    - name : Upload artifact
-      uses: actions/upload-artifact@main
+    - name: Upload to SourceForge
+      uses: Pendect/action-rsyncer@8e05ffa5c93e5d9c9b167796b26044d2c616b2b9
       with:
-        name: OpenWrt-${{ matrix.target }}
-        path: openwrt/bin
+        flags: '-ahvHP'
+        src: 'openwrt/bin/'
+        dest: '${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/lean-build/snapshot/'
+      env:
+        DEPLOY_KEY: ${{ secrets.SF_KEY }}
