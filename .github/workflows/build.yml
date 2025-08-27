@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        full_target:
+        target-platform:
           - x86/64
           - rockchip/armv8
           - ramips/mt7621
@@ -139,8 +139,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
-        echo "${{ matrix.full_target }}" | cut -d'/' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
-        echo "${{ matrix.full_target }}" | cut -d'/' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'/' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'/' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
 
     - name: Clone
       run: |
