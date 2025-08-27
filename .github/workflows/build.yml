@@ -22,15 +22,15 @@ jobs:
       matrix:
         target-platform:
           - lean|https://github.com/coolsnowwolf/lede|master|x86/64
-          - lean|https://github.com/rockchip-linux/lede|master|rockchip/armv8
-          - lean|https://github.com/openwrt/mt7621|master|ramips/mt7621
-          - lean|https://github.com/openwrt/mt7621|master|mediatek/filogic
-          - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7981
-          - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7986
-          - Lienol|https://github.com/Lienol/openwrt|24.10|x86/64
-          - Lienol|https://github.com/Lienol/openwrt|24.10|rockchip/armv8
-          - Lienol|https://github.com/Lienol/openwrt|24.10|ramips/mt7621
-          - Lienol|https://github.com/Lienol/openwrt|24.10|mediatek/filogic
+          # - lean|https://github.com/rockchip-linux/lede|master|rockchip/armv8
+          # - lean|https://github.com/openwrt/mt7621|master|ramips/mt7621
+          # - lean|https://github.com/openwrt/mt7621|master|mediatek/filogic
+          # - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7981
+          # - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7986
+          # - Lienol|https://github.com/Lienol/openwrt|24.10|x86/64
+          # - Lienol|https://github.com/Lienol/openwrt|24.10|rockchip/armv8
+          # - Lienol|https://github.com/Lienol/openwrt|24.10|ramips/mt7621
+          # - Lienol|https://github.com/Lienol/openwrt|24.10|mediatek/filogic
 
           # - ath79/nand
           # - allwinner/generic
