@@ -247,7 +247,7 @@ jobs:
         echo -e "$(nproc) thread build."
         # 使用 -k 参数让 make 在遇到错误时继续构建其他目标
         # 使用 -i 参数忽略错误继续构建
-        make -j$(nproc) -k -i V=s || true
+        make -j$(nproc) -k -i || true
 
     - name: Upload to SourceForge
       run: |
