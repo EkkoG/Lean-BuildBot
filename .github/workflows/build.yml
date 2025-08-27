@@ -20,6 +20,12 @@ jobs:
       fail-fast: false
       matrix:
         full_target:
+          - x86/64
+          - rockchip/armv8
+          - ramips/mt7621
+          - mediatek/filogic
+
+          # - ath79/nand
           # - allwinner/generic
           # - amlogic/meson8b
           # - amlogic/mesongx
@@ -34,7 +40,6 @@ jobs:
           # - ath25/generic
           # - ath79/generic
           # - ath79/mikrotik
-          # - ath79/nand
           # - ath79/tiny
           # - bcm27xx/bcm2708
           # - bcm27xx/bcm2709
@@ -63,7 +68,6 @@ jobs:
           # - layerscape/armv8_64b
           # - loongarch64/generic
           # - malta/be
-          # - mediatek/filogic
           # - mediatek/mt7622
           # - mediatek/mt7623
           # - mediatek/mt7629
@@ -86,7 +90,6 @@ jobs:
           # - qualcommax/ipq60xx
           # - qualcommax/ipq807x
           # - ramips/mt7620
-          # - ramips/mt7621
           # - ramips/mt76x8
           # - ramips/rt288x
           # - ramips/rt305x
@@ -95,7 +98,6 @@ jobs:
           # - realtek/rtl839x
           # - realtek/rtl930x
           # - realtek/rtl931x
-          - rockchip/armv8
           # - sifiveu/generic
           # - silicon/armv8
           # - starfive/generic
@@ -104,7 +106,6 @@ jobs:
           # - sunxi/cortexa7
           # - sunxi/cortexa8
           # - tegra/generic
-          - x86/64
           # - x86/generic
           # - x86/geode
           # - x86/legacy
@@ -134,7 +135,7 @@ jobs:
 
         sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
         sudo -E apt-get update
-        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swag texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev qemu-img python3-distutils
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swag texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev qemu-img
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
@@ -184,10 +185,18 @@ jobs:
         make -j$(nproc) -k -i V=s || true
 
     - name: Upload to SourceForge
-      uses: Pendect/action-rsyncer@8e05ffa5c93e5d9c9b167796b26044d2c616b2b9
-      with:
-        flags: '-ahvHP'
-        src: 'openwrt/bin/'
-        dest: '${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/snapshot/'
-      env:
-        DEPLOY_KEY: ${{ secrets.SF_KEY }}
+      run: |
+        # 确保 rsync 已安装
+        which rsync || sudo apt-get update && sudo apt-get install -y rsync
+        
+        # 创建 SSH 密钥文件
+        echo "${{ secrets.SF_KEY }}" > ~/.ssh/sf_key
+        chmod 600 ~/.ssh/sf_key
+        
+        # 使用 rsync 上传文件
+        rsync -ahvHP -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+          openwrt/bin/ \
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/lean/snapshot/
+        
+        # 清理 SSH 密钥
+        rm -f ~/.ssh/sf_key
