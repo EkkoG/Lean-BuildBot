@@ -20,10 +20,16 @@ jobs:
       fail-fast: false
       matrix:
         target-platform:
-          - x86/64
-          - rockchip/armv8
-          - ramips/mt7621
-          - mediatek/filogic
+          - lean|https://github.com/coolsnowwolf/lede|master|x86/64
+          - lean|https://github.com/rockchip-linux/lede|master|rockchip/armv8
+          - lean|https://github.com/openwrt/mt7621|master|ramips/mt7621
+          - lean|https://github.com/openwrt/mt7621|master|mediatek/filogic
+          - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7981
+          - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7986
+          - Lienol|https://github.com/Lienol/openwrt|24.10|x86/64
+          - Lienol|https://github.com/Lienol/openwrt|24.10|rockchip/armv8
+          - Lienol|https://github.com/Lienol/openwrt|24.10|ramips/mt7621
+          - Lienol|https://github.com/Lienol/openwrt|24.10|mediatek/filogic
 
           # - ath79/nand
           # - allwinner/generic
@@ -139,12 +145,18 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
-        echo "${{ matrix.target-platform }}" | cut -d'/' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
-        echo "${{ matrix.target-platform }}" | cut -d'/' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'|' -f1 | xargs -I {} echo "FORK_NAME={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'|' -f2 | xargs -I {} echo "REPO_URL={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'|' -f3 | xargs -I {} echo "BRANCH={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'|' -f4 | cut -d'/' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
+        echo "${{ matrix.target-platform }}" | cut -d'|' -f4 | cut -d'/' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
 
     - name: Clone
       run: |
-        git clone --depth 1 https://github.com/coolsnowwolf/lede -b master openwrt
+        git clone --depth 1 $REPO_URL -b $BRANCH openwrt
+        cd openwrt
+        latest_commit=$(git rev-parse HEAD)
+        echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
         
     - name: Update & Install
       working-directory: ./openwrt
@@ -196,7 +208,7 @@ jobs:
         # 使用 rsync 上传文件
         rsync -ahvHP -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           openwrt/bin/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/lean/snapshot/
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${FORK_NAME}/snapshot/
         
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
