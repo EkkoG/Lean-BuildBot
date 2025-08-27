@@ -20,11 +20,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - target: x86
-          subtarget: 64
-          branch: master
-          repo: https://github.com/coolsnowwolf/lede
-          name: lean
+        target:
+          - target: x86
+            subtarget: 64
+            branch: master
+            repo: https://github.com/coolsnowwolf/lede
+            name: lean
         # target-platform:
         #   - lean|https://github.com/coolsnowwolf/lede|master|x86/64
           # - lean|https://github.com/rockchip-linux/lede|master|rockchip/armv8
@@ -159,7 +160,7 @@ jobs:
 
     - name: Clone
       run: |
-        git clone --depth 1 ${{ matrix.repo }} -b ${{ matrix.branch }} openwrt
+        git clone --depth 1 ${{ matrix.target.repo }} -b ${{ matrix.target.branch }} openwrt
         cd openwrt
         latest_commit=$(git rev-parse HEAD)
         echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
@@ -168,9 +169,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.ccache
-        key: ccache-${{ matrix.target }}-${{ matrix.subtarget }}-${{ env.LATEST_COMMIT }}
+        key: ccache-${{ matrix.target.target }}-${{ matrix.target.subtarget }}-${{ env.LATEST_COMMIT }}
         restore-keys: |
-          ccache-${{ matrix.target }}-${{ matrix.subtarget }}-
+          ccache-${{ matrix.target.target }}-${{ matrix.target.subtarget }}-
 
     - name: Update & Install
       working-directory: ./openwrt
@@ -183,8 +184,8 @@ jobs:
         cd openwrt
         
         # 设置 target 和 subtarget（非交互式）
-        echo "CONFIG_TARGET_${{ matrix.target }}=y" > .config
-        echo "CONFIG_TARGET_${{ matrix.target }}_${{ matrix.subtarget }}=y" >> .config
+        echo "CONFIG_TARGET_${{ matrix.target.target }}=y" > .config
+        echo "CONFIG_TARGET_${{ matrix.target.target }}_${{ matrix.target.subtarget }}=y" >> .config
         echo "CONFIG_IB=y" >> .config
         echo "CONFIG_SDK=y" >> .config
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
@@ -225,7 +226,7 @@ jobs:
         # 使用 rsync 上传文件
         rsync -ahvHP -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           openwrt/bin/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.name }}/snapshot/
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.target.name }}/snapshot/
         
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
