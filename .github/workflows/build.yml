@@ -1,6 +1,6 @@
 name: Build
 
-# Add a button to trigger the workflow
+
 on: 
   push:
     branches:
@@ -10,6 +10,7 @@ on:
       - 'LICENSE'
       - '.gitignore'
       - 'README.md'
+# Add a button to trigger the workflow
   workflow_dispatch:
 
 jobs:
@@ -20,24 +21,58 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target:
-          - target: x86
-            subtarget: 64
-            branch: master
+        config:
+          - fork-name: lean
             repo: https://github.com/coolsnowwolf/lede
-            name: lean
-        # target-platform:
-        #   - lean|https://github.com/coolsnowwolf/lede|master|x86/64
-          # - lean|https://github.com/rockchip-linux/lede|master|rockchip/armv8
-          # - lean|https://github.com/openwrt/mt7621|master|ramips/mt7621
-          # - lean|https://github.com/openwrt/mt7621|master|mediatek/filogic
-          # - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7981
-          # - hanwckf|https://github.com/hanwckf/immortalwrt-mt798x|openwrt-21.02|mediatek/mt7986
-          # - Lienol|https://github.com/Lienol/openwrt|24.10|x86/64
-          # - Lienol|https://github.com/Lienol/openwrt|24.10|rockchip/armv8
-          # - Lienol|https://github.com/Lienol/openwrt|24.10|ramips/mt7621
-          # - Lienol|https://github.com/Lienol/openwrt|24.10|mediatek/filogic
-
+            branch: master
+            target: x86
+            subtarget: 64
+          - name: lean
+            repo: https://github.com/coolsnowwolf/lede
+            branch: master
+            target: rockchip
+            subtarget: armv8
+          - name: lean
+            repo: https://github.com/coolsnowwolf/lede
+            branch: master
+            target: ramips
+            subtarget: mt7621
+          - name: lean
+            repo: https://github.com/coolsnowwolf/lede
+            branch: master
+            target: mediatek
+            subtarget: filogic
+          - fork-name: hanwckf
+            repo: https://github.com/hanwckf/immortalwrt-mt798x
+            branch: openwrt-21.02
+            target: mediatek
+            subtarget: mt7981
+          - fork-name: hanwckf
+            repo: https://github.com/hanwckf/immortalwrt-mt798x
+            branch: openwrt-21.02
+            target: mediatek
+            subtarget: mt7986
+          - fork-name: Lienol
+            repo: https://github.com/Lienol/openwrt
+            branch: 24.10
+            target: x86
+            subtarget: 64
+          - fork-name: Lienol
+            repo: https://github.com/Lienol/openwrt
+            branch: 24.10
+            target: rockchip
+            subtarget: armv8
+          - fork-name: Lienol
+            repo: https://github.com/Lienol/openwrt
+            branch: 24.10
+            target: ramips
+            subtarget: mt7621
+          - fork-name: Lienol
+            repo: https://github.com/Lienol/openwrt
+            branch: 24.10
+            target: mediatek
+            subtarget: filogic
+          
           # - ath79/nand
           # - allwinner/generic
           # - amlogic/meson8b
@@ -160,7 +195,7 @@ jobs:
 
     - name: Clone
       run: |
-        git clone --depth 1 ${{ matrix.target.repo }} -b ${{ matrix.target.branch }} openwrt
+        git clone --depth 1 ${{ matrix.config.repo }} -b ${{ matrix.config.branch }} openwrt
         cd openwrt
         latest_commit=$(git rev-parse HEAD)
         echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
@@ -169,9 +204,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.ccache
-        key: ccache-${{ matrix.target.target }}-${{ matrix.target.subtarget }}-${{ env.LATEST_COMMIT }}
+        key: ccache-${{ matrix.config.target }}-${{ matrix.config.subtarget }}-${{ env.LATEST_COMMIT }}
         restore-keys: |
-          ccache-${{ matrix.target.target }}-${{ matrix.target.subtarget }}-
+          ccache-${{ matrix.config.target }}-${{ matrix.config.subtarget }}-
 
     - name: Update & Install
       working-directory: ./openwrt
@@ -184,8 +219,8 @@ jobs:
         cd openwrt
         
         # 设置 target 和 subtarget（非交互式）
-        echo "CONFIG_TARGET_${{ matrix.target.target }}=y" > .config
-        echo "CONFIG_TARGET_${{ matrix.target.target }}_${{ matrix.target.subtarget }}=y" >> .config
+        echo "CONFIG_TARGET_${{ matrix.config.target }}=y" > .config
+        echo "CONFIG_TARGET_${{ matrix.config.target }}_${{ matrix.config.subtarget }}=y" >> .config
         echo "CONFIG_IB=y" >> .config
         echo "CONFIG_SDK=y" >> .config
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
@@ -226,7 +261,7 @@ jobs:
         # 使用 rsync 上传文件
         rsync -ahvHP -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           openwrt/bin/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.target.name }}/snapshot/
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/
         
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
