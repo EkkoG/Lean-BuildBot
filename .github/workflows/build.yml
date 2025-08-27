@@ -150,6 +150,12 @@ jobs:
         echo "${{ matrix.target-platform }}" | cut -d'|' -f3 | xargs -I {} echo "BRANCH={}" >> $GITHUB_ENV
         echo "${{ matrix.target-platform }}" | cut -d'|' -f4 | cut -d'/' -f1 | xargs -I {} echo "TARGET={}" >> $GITHUB_ENV
         echo "${{ matrix.target-platform }}" | cut -d'|' -f4 | cut -d'/' -f2 | xargs -I {} echo "SUBTARGET={}" >> $GITHUB_ENV
+        
+        # Configure CCACHE
+        echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
+        echo "CCACHE_MAXSIZE=8G" >> $GITHUB_ENV
+        echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
+        mkdir -p $HOME/.ccache
 
     - name: Clone
       run: |
@@ -158,6 +164,14 @@ jobs:
         latest_commit=$(git rev-parse HEAD)
         echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
         
+    - name: Cache CCACHE
+      uses: actions/cache@v3
+      with:
+        path: ~/.ccache
+        key: ccache-${{ matrix.target-platform }}-${{ env.LATEST_COMMIT }}
+        restore-keys: |
+          ccache-${{ matrix.target-platform }}-
+
     - name: Update & Install
       working-directory: ./openwrt
       run: |
@@ -175,6 +189,9 @@ jobs:
         echo "CONFIG_SDK=y" >> .config
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
         echo "CONFIG_TARGET_ALL_PROFILES=y" >> .config
+        
+        # 启用 CCACHE
+        echo "CONFIG_CCACHE=y" >> .config
         
         # 生成完整的默认配置
         make defconfig
