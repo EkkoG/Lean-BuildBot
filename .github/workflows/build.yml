@@ -251,9 +251,6 @@ jobs:
 
     - name: Upload to SourceForge
       run: |
-        # 确保 rsync 已安装
-        which rsync || sudo apt-get update && sudo apt-get install -y rsync
-        
         # 创建 SSH 密钥文件
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
