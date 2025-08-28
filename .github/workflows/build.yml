@@ -257,7 +257,7 @@ jobs:
 
     - name: Upload to SourceForge
       run: |
-        packages_arch=$(ls bin/packages/ | head -n 1)
+        packages_arch=$(ls bin/packages/ | head -n 1 | tr -d '\n')
 
         # 创建 SSH 密钥文件
         mkdir -p ~/.ssh
