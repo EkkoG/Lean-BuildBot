@@ -257,6 +257,8 @@ jobs:
 
     - name: Upload to SourceForge
       run: |
+        packages_arch=$(ls bin/packages/ | head -n 1)
+
         # 创建 SSH 密钥文件
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
@@ -264,9 +266,13 @@ jobs:
         chmod 600 ~/.ssh/sf_key
         
         # 使用 rsync 上传文件
-        rsync -ahvHP -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-          openwrt/bin/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/
+        rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+          openwrt/bin/packages/${packages_arch}/ \
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/packages/${packages_arch}/
+
+        rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+          openwrt/bin/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/ \
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/
         
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
