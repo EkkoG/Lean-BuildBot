@@ -217,7 +217,9 @@ jobs:
         echo "CONFIG_TARGET_ALL_PROFILES=y" >> .config
         
         # 启用 CCACHE
+        echo "CONFIG_CCACHE=y" >> .config
         echo "CONFIG_CCACHE_DIR=.ccache" >> .config
+        echo "CONFIG_DEVEL=y" >> .config
 
         
         # 生成完整的默认配置
