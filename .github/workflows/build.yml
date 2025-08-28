@@ -27,17 +27,17 @@ jobs:
             branch: master
             target: x86
             subtarget: 64
-          - name: lean
+          - fork-name: lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: rockchip
             subtarget: armv8
-          - name: lean
+          - fork-name: lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: ramips
             subtarget: mt7621
-          - name: lean
+          - fork-name: lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: mediatek
