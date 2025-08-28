@@ -255,6 +255,8 @@ jobs:
         which rsync || sudo apt-get update && sudo apt-get install -y rsync
         
         # 创建 SSH 密钥文件
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
         echo "${{ secrets.SF_KEY }}" > ~/.ssh/sf_key
         chmod 600 ~/.ssh/sf_key
         
