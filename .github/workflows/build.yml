@@ -197,14 +197,6 @@ jobs:
         cd openwrt
         latest_commit=$(git rev-parse HEAD)
         echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
-        
-    - name: Cache CCACHE
-      uses: actions/cache@v3
-      with:
-        path: ./openwrt/.ccache
-        key: ccache-${{ matrix.config.target }}-${{ matrix.config.subtarget }}-${{ env.LATEST_COMMIT }}
-        restore-keys: |
-          ccache-${{ matrix.config.target }}-${{ matrix.config.subtarget }}-
 
     - name: Update & Install
       working-directory: ./openwrt
@@ -240,7 +232,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name:  Cache
+    - name:  Setup Cache
       uses: stupidloud/cachewrtbuild@main
       with:
         ccache: 'true'
