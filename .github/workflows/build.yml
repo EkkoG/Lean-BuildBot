@@ -22,22 +22,22 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - fork-name: lean
+          - fork-name: Lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: x86
             subtarget: "64"
-          - fork-name: lean
+          - fork-name: Lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: rockchip
             subtarget: armv8
-          - fork-name: lean
+          - fork-name: Lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: ramips
             subtarget: mt7621
-          - fork-name: lean
+          - fork-name: Lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: mediatek
