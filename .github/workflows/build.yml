@@ -188,10 +188,8 @@ jobs:
         sudo -E apt-get clean
 
         # Configure CCACHE
-        echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
         echo "CCACHE_MAXSIZE=8G" >> $GITHUB_ENV
         echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
-        mkdir -p $HOME/.ccache
 
     - name: Clone
       run: |
@@ -203,7 +201,7 @@ jobs:
     - name: Cache CCACHE
       uses: actions/cache@v3
       with:
-        path: ~/.ccache
+        path: ./openwrt/.ccache
         key: ccache-${{ matrix.config.target }}-${{ matrix.config.subtarget }}-${{ env.LATEST_COMMIT }}
         restore-keys: |
           ccache-${{ matrix.config.target }}-${{ matrix.config.subtarget }}-
@@ -227,7 +225,8 @@ jobs:
         echo "CONFIG_TARGET_ALL_PROFILES=y" >> .config
         
         # 启用 CCACHE
-        echo "CONFIG_CCACHE=y" >> .config
+        echo "CONFIG_CCACHE_DIR=.ccache" >> .config
+
         
         # 生成完整的默认配置
         make defconfig
@@ -240,6 +239,13 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name:  Cache
+      uses: stupidloud/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        mixkey: '${{ matrix.config.fork-name }}-${{ matrix.config.target }}-${{ matrix.config.subtarget }}'
+        prefix: 'openwrt'
 
     - name: Build
       working-directory: ./openwrt
