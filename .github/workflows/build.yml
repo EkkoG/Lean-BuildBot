@@ -26,7 +26,7 @@ jobs:
             repo: https://github.com/coolsnowwolf/lede
             branch: master
             target: x86
-            subtarget: 64
+            subtarget: "64"
           - fork-name: lean
             repo: https://github.com/coolsnowwolf/lede
             branch: master
@@ -54,22 +54,22 @@ jobs:
             subtarget: mt7986
           - fork-name: Lienol
             repo: https://github.com/Lienol/openwrt
-            branch: 24.10
+            branch: "24.10"
             target: x86
-            subtarget: 64
+            subtarget: "64"
           - fork-name: Lienol
             repo: https://github.com/Lienol/openwrt
-            branch: 24.10
+            branch: "24.10"
             target: rockchip
             subtarget: armv8
           - fork-name: Lienol
             repo: https://github.com/Lienol/openwrt
-            branch: 24.10
+            branch: "24.10"
             target: ramips
             subtarget: mt7621
           - fork-name: Lienol
             repo: https://github.com/Lienol/openwrt
-            branch: 24.10
+            branch: "24.10"
             target: mediatek
             subtarget: filogic
           
