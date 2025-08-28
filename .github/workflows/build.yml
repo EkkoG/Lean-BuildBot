@@ -272,7 +272,7 @@ jobs:
         chmod 600 ~/.ssh/sf_key
         
         # 使用 rsync 上传文件
-        rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+        rsync -ahvHP -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           openwrt/bin/ \
           ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/
         
