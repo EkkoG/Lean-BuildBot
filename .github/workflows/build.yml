@@ -250,10 +250,18 @@ jobs:
     - name: Build
       working-directory: ./openwrt
       run: |
+        echo ${{ secrets.KEY_BUILD }} > key-build
         echo -e "$(nproc) thread build."
         # 使用 -k 参数让 make 在遇到错误时继续构建其他目标
         # 使用 -i 参数忽略错误继续构建
         make -j$(nproc) -k -i || true
+
+
+        # 打印所有 Packages.manifest 和 sha256sums
+        echo "Packages.manifest:"
+        find bin/ -name "Packages.manifest" -exec cat {} \;
+        echo "sha256sums:"
+        find bin/ -name "sha256sums" -exec cat {} \;
 
     - name: Upload to SourceForge
       run: |
