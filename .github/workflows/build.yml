@@ -27,51 +27,7 @@ jobs:
             branch: master
             target: x86
             subtarget: "64"
-          - fork-name: Lean
-            repo: https://github.com/coolsnowwolf/lede
-            branch: master
-            target: rockchip
-            subtarget: armv8
-          - fork-name: Lean
-            repo: https://github.com/coolsnowwolf/lede
-            branch: master
-            target: ramips
-            subtarget: mt7621
-          - fork-name: Lean
-            repo: https://github.com/coolsnowwolf/lede
-            branch: master
-            target: mediatek
-            subtarget: filogic
-          - fork-name: hanwckf
-            repo: https://github.com/hanwckf/immortalwrt-mt798x
-            branch: openwrt-21.02
-            target: mediatek
-            subtarget: mt7981
-          - fork-name: hanwckf
-            repo: https://github.com/hanwckf/immortalwrt-mt798x
-            branch: openwrt-21.02
-            target: mediatek
-            subtarget: mt7986
-          - fork-name: Lienol
-            repo: https://github.com/Lienol/openwrt
-            branch: "24.10"
-            target: x86
-            subtarget: "64"
-          - fork-name: Lienol
-            repo: https://github.com/Lienol/openwrt
-            branch: "24.10"
-            target: rockchip
-            subtarget: armv8
-          - fork-name: Lienol
-            repo: https://github.com/Lienol/openwrt
-            branch: "24.10"
-            target: ramips
-            subtarget: mt7621
-          - fork-name: Lienol
-            repo: https://github.com/Lienol/openwrt
-            branch: "24.10"
-            target: mediatek
-            subtarget: filogic
+          
           
           # - ath79/nand
           # - allwinner/generic
