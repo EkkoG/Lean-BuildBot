@@ -200,7 +200,7 @@ jobs:
     - name: Build
       working-directory: ./openwrt
       run: |
-        echo ${{ secrets.KEY_BUILD }} > key-build
+        echo "${{ secrets.KEY_BUILD }}" > key-build
         echo -e "$(nproc) thread build."
         # 使用 -k 参数让 make 在遇到错误时继续构建其他目标
         # 使用 -i 参数忽略错误继续构建
