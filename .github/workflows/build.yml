@@ -176,6 +176,7 @@ jobs:
         echo "CONFIG_CCACHE=y" >> .config
         echo "CONFIG_CCACHE_DIR=.ccache" >> .config
         echo "CONFIG_DEVEL=y" >> .config
+        echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots" >> .config
 
         
         # 生成完整的默认配置
@@ -230,11 +231,11 @@ jobs:
         # 使用 rsync 上传文件
         rsync -ahvHP --delete --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           bin/packages/${packages_arch}/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/packages/${packages_arch}/
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots/packages/${packages_arch}/
 
         rsync -ahvHP --delete --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           bin/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshot/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/
+          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/
         
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
