@@ -208,6 +208,10 @@ jobs:
         echo "${{ secrets.KEY_BUILD }}" > key-build
         cp ../key-build.pub ./key-build.pub
 
+        # APK_SEC_KEY
+        echo "${{ secrets.APK_SEC_KEY }}" > private-key.pem
+        cp ../public-key.pem ./public-key.pem
+
         # 使用 -k 参数让 make 在遇到错误时继续构建其他目标
         # 使用 -i 参数忽略错误继续构建
         make -j$(nproc) -k -i || true
