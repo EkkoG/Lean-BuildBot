@@ -267,6 +267,13 @@ jobs:
         echo "sha256sums:"
         find bin/ -name "sha256sums" -exec cat {} \;
 
+        if [ -d ".ccache" ]; then
+          echo "ccache is enabled"
+          ls -al .ccache | head -n 10
+        else
+          echo "ccache is disabled"
+        fi
+
     - name: Upload to SourceForge
       working-directory: ./openwrt/bin
       run: |
