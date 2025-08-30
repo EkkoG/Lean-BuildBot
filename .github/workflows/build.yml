@@ -176,6 +176,8 @@ jobs:
         echo "CONFIG_CCACHE=y" >> .config
         echo "CONFIG_CCACHE_DIR=.ccache" >> .config
         echo "CONFIG_DEVEL=y" >> .config
+
+        # 启用软件源配置
         echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots" >> .config
 
         
@@ -218,24 +220,43 @@ jobs:
         find bin/ -name "sha256sums" -exec cat {} \;
 
     - name: Upload to SourceForge
-      working-directory: ./openwrt
+      working-directory: ./openwrt/bin
       run: |
-        packages_arch=$(ls bin/packages/ | head -n 1 | tr -d '\n')
+        packages_arch=$(ls packages/ | head -n 1 | tr -d '\n')
 
         # 创建 SSH 密钥文件
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
         echo "${{ secrets.SF_KEY }}" > ~/.ssh/sf_key
         chmod 600 ~/.ssh/sf_key
-        
-        # 使用 rsync 上传文件
-        rsync -ahvHP --delete --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-          bin/packages/${packages_arch}/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots/packages/${packages_arch}/
 
-        rsync -ahvHP --delete --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-          bin/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/ \
-          ${{ secrets.SF_USER }}@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots/targets/${{ matrix.config.target }}/${{ matrix.config.subtarget }}/
-        
+        user=${{ secrets.SF_USER }}
+        fork_name=${{ matrix.config.fork-name }}
+        target=${{ matrix.config.target }}
+        subtarget=${{ matrix.config.subtarget }}
+
+        echo "create dir" > packages/${packages_arch}/create_dir.txt
+        rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+            packages/${packages_arch}/create_dir.txt \
+        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/
+
+        rm -rf packages/${packages_arch}/create_dir.txt
+
+        # 使用 rsync 上传文件
+        rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+          packages/${packages_arch}/ \
+          $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/packages/${packages_arch}/
+
+        echo "create dir" > targets/${target}/${subtarget}/create_dir.txt
+        rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+          targets/${target}/${subtarget}/create_dir.txt \
+          $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/
+
+        rm -rf targets/${target}/${subtarget}/create_dir.txt
+
+        rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+          targets/${target}/${subtarget}/ \
+          $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/targets/${target}/${subtarget}/
+                
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
