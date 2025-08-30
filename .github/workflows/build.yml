@@ -249,18 +249,18 @@ jobs:
         # 使用 rsync 上传文件
         rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           packages/${packages_arch}/ \
-          $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/packages/${packages_arch}/
+        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/packages/${packages_arch}/
 
         echo "create dir" > targets/${target}/${subtarget}/create_dir.txt
         rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           targets/${target}/${subtarget}/create_dir.txt \
-          $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/
+        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/
 
         rm -rf targets/${target}/${subtarget}/create_dir.txt
 
         rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           targets/${target}/${subtarget}/ \
-          $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/targets/${target}/${subtarget}/
+        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/targets/${target}/${subtarget}/
                 
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
