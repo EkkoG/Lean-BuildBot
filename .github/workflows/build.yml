@@ -265,9 +265,9 @@ jobs:
         # 删除包含 CONFIG_DEBUG_INFO_REDUCED 的行
         sed -i '/CONFIG_DEBUG_INFO_REDUCED/d' .config
         echo "# CONFIG_DEBUG_INFO_REDUCED is not set" >> .config
-        echo "CONFIG_DEBUG_INFO_BTF=y" >> .config
-        echo "CONFIG_KPROBE_EVENTS=y" >> .config
-        echo "CONFIG_BPF_EVENTS=y" >> .config
+        echo "CONFIG_KERNEL_DEBUG_INFO_BTF=y" >> .config
+        echo "CONFIG_KERNEL_KPROBE_EVENTS=y" >> .config
+        echo "CONFIG_KERNEL_BPF_EVENTS=y" >> .config
 
         cat .config
 
