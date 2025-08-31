@@ -235,7 +235,9 @@ jobs:
         echo "CONFIG_NET_CLS_ACT=y" >> .config
         echo "CONFIG_BPF_STREAM_PARSER=y" >> .config
         echo "CONFIG_DEBUG_INFO=y" >> .config
-        echo "CONFIG_DEBUG_INFO_REDUCED is not set" >> .config
+        # 删除包含 CONFIG_DEBUG_INFO_REDUCED 的行
+        sed -i '/CONFIG_DEBUG_INFO_REDUCED/d' .config
+        echo "# CONFIG_DEBUG_INFO_REDUCED is not set" >> .config
         echo "CONFIG_DEBUG_INFO_BTF=y" >> .config
         echo "CONFIG_KPROBE_EVENTS=y" >> .config
         echo "CONFIG_BPF_EVENTS=y" >> .config
