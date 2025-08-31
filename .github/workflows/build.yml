@@ -223,10 +223,14 @@ jobs:
     - name: Configuration
       run: |
         cd openwrt
+
+        target=${{ matrix.config.target }}
+        subtarget=${{ matrix.config.subtarget }}
+        fork_name=${{ matrix.config.fork-name }}
         
         # 设置 target 和 subtarget（非交互式）
-        echo "CONFIG_TARGET_${{ matrix.config.target }}=y" > .config
-        echo "CONFIG_TARGET_${{ matrix.config.target }}_${{ matrix.config.subtarget }}=y" >> .config
+        echo "CONFIG_TARGET_${target}=y" > .config
+        echo "CONFIG_TARGET_${target}_${subtarget}=y" >> .config
         echo "CONFIG_IB=y" >> .config
         echo "CONFIG_SDK=y" >> .config
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
@@ -259,7 +263,7 @@ jobs:
         echo "CONFIG_BPF_EVENTS=y" >> .config
 
         # 启用软件源配置
-        echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots" >> .config
+        echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${fork_name}/snapshots" >> .config
 
         
         # 生成完整的默认配置
