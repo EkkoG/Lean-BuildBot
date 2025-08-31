@@ -242,6 +242,13 @@ jobs:
         echo "CONFIG_CCACHE_DIR=.ccache" >> .config
         echo "CONFIG_DEVEL=y" >> .config
 
+        # 启用软件源配置
+        echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${fork_name}/snapshots" >> .config
+
+        
+        # 生成完整的默认配置
+        make defconfig
+
         # BPF
         echo "CONFIG_BPF=y" >> .config
         echo "CONFIG_BPF_SYSCALL=y" >> .config
@@ -261,13 +268,6 @@ jobs:
         echo "CONFIG_DEBUG_INFO_BTF=y" >> .config
         echo "CONFIG_KPROBE_EVENTS=y" >> .config
         echo "CONFIG_BPF_EVENTS=y" >> .config
-
-        # 启用软件源配置
-        echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${fork_name}/snapshots" >> .config
-
-        
-        # 生成完整的默认配置
-        make defconfig
 
         cat .config
 
