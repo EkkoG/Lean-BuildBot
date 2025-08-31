@@ -259,10 +259,6 @@ jobs:
     - name: Download
       working-directory: ./openwrt
       run: |
-        [ -f staging_dir/host/bin/python3 ] && cat staging_dir/host/bin/python3
-        echo "test pyelftools"
-        [ -f staging_dir/host/bin/python3 ] && staging_dir/host/bin/python3 -c "import pyelftools; print('pyelftools imported successfully')"
-
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
