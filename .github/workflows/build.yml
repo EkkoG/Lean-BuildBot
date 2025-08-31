@@ -196,6 +196,17 @@ jobs:
         echo "CCACHE_MAXSIZE=8G" >> $GITHUB_ENV
         echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
 
+    - name: Free disk space
+      uses: coder-xiaomo/free-disk-space@main
+      with:
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
     - name: Clone
       run: |
         git clone --depth 1 ${{ matrix.config.repo }} -b ${{ matrix.config.branch }} openwrt
