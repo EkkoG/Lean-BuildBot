@@ -215,11 +215,30 @@ jobs:
         echo "CONFIG_SDK=y" >> .config
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
         echo "CONFIG_TARGET_ALL_PROFILES=y" >> .config
+        echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y" >> .config
         
         # 启用 CCACHE
         echo "CONFIG_CCACHE=y" >> .config
         echo "CONFIG_CCACHE_DIR=.ccache" >> .config
         echo "CONFIG_DEVEL=y" >> .config
+
+        # BPF
+        echo "CONFIG_BPF=y" >> .config
+        echo "CONFIG_BPF_SYSCALL=y" >> .config
+        echo "CONFIG_BPF_JIT=y" >> .config
+        echo "CONFIG_CGROUPS=y" >> .config
+        echo "CONFIG_KPROBES=y" >> .config
+        echo "CONFIG_NET_INGRESS=y" >> .config
+        echo "CONFIG_NET_EGRESS=y" >> .config
+        echo "CONFIG_NET_SCH_INGRESS=m" >> .config
+        echo "CONFIG_NET_CLS_BPF=m" >> .config
+        echo "CONFIG_NET_CLS_ACT=y" >> .config
+        echo "CONFIG_BPF_STREAM_PARSER=y" >> .config
+        echo "CONFIG_DEBUG_INFO=y" >> .config
+        echo "CONFIG_DEBUG_INFO_REDUCED is not set" >> .config
+        echo "CONFIG_DEBUG_INFO_BTF=y" >> .config
+        echo "CONFIG_KPROBE_EVENTS=y" >> .config
+        echo "CONFIG_BPF_EVENTS=y" >> .config
 
         # 启用软件源配置
         echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${{ matrix.config.fork-name }}/snapshots" >> .config
