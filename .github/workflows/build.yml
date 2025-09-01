@@ -243,7 +243,7 @@ jobs:
         echo "CONFIG_DEVEL=y" >> .config
 
         # 启用软件源配置
-        echo "CONFIG_VERSION_REPO=https://onboardcloud.dl.sourceforge.net/project/openwrt-forks-build/${fork_name}/snapshots" >> .config
+        echo "CONFIG_VERSION_REPO=https://downloads.sourceforge.net/project/openwrt-forks-build/${fork_name}/snapshots" >> .config
 
         # kmods
         echo "CONFIG_ALL_KMODS=y" >> .config
