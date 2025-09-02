@@ -372,6 +372,10 @@ jobs:
         # kmods
         echo "CONFIG_ALL_KMODS=y" >> .config
         echo "CONFIG_ALL_NONSHARED=y" >> .config
+
+        echo "CONFIG_BUILDBOT=y" >> .config
+        echo "CONFIG_IB_STANDALONE=" >> .config
+        echo "CONFIG_VERSION_NUMBER=SNAPSHOT" >> .config
         
         # 生成完整的默认配置
         make defconfig
