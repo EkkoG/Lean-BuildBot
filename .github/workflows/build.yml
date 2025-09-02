@@ -12,6 +12,11 @@ on:
       - 'README.md'
 # Add a button to trigger the workflow
   workflow_dispatch:
+    inputs:
+      version:
+        description: "The version you want to build"
+        required: false
+        default: "SNAPSHOT"
 
 jobs:
   build:
@@ -320,6 +325,8 @@ jobs:
         echo "CCACHE_MAXSIZE=8G" >> $GITHUB_ENV
         echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
 
+        echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+
     - name: Free disk space
       uses: coder-xiaomo/free-disk-space@main
       with:
@@ -367,7 +374,7 @@ jobs:
         echo "CONFIG_DEVEL=y" >> .config
 
         # 启用软件源配置
-        echo "CONFIG_VERSION_REPO=https://downloads.sourceforge.net/project/openwrt-forks-build/${fork_name}/snapshots" >> .config
+        echo "CONFIG_VERSION_REPO=https://downloads.sourceforge.net/project/openwrt-forks-build/${fork_name}/${{ inputs.version }}" >> .config
 
         # kmods
         echo "CONFIG_ALL_KMODS=y" >> .config
@@ -375,7 +382,7 @@ jobs:
 
         echo "CONFIG_BUILDBOT=y" >> .config
         echo "CONFIG_IB_STANDALONE=" >> .config
-        echo "CONFIG_VERSION_NUMBER=SNAPSHOT" >> .config
+        echo "CONFIG_VERSION_NUMBER=${{ inputs.version }}" >> .config
         
         # 生成完整的默认配置
         make defconfig
@@ -462,7 +469,7 @@ jobs:
         fork_name=${{ matrix.config.fork-name }}
         target=${{ matrix.config.target }}
         subtarget=${{ matrix.config.subtarget }}
-        version=snapshots
+        version=${{ inputs.version }}
 
         mkdir -p ${version}/packages/${packages_arch}
         mkdir -p ${version}/targets/${target}/${subtarget}
