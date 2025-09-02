@@ -462,29 +462,37 @@ jobs:
         fork_name=${{ matrix.config.fork-name }}
         target=${{ matrix.config.target }}
         subtarget=${{ matrix.config.subtarget }}
+        version=snapshots
 
-        echo "create dir" > packages/${packages_arch}/create_dir.txt
+        mkdir -p ${version}/packages/${packages_arch}
+        mkdir -p ${version}/targets/${target}/${subtarget}
+
+        fork_url=frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}
+        packages_url=${fork_url}/${version}/packages/${packages_arch}/
+        targets_url=${fork_url}/${version}/targets/${target}/${subtarget}/
+
+        echo "Create packages dir"
         rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-            packages/${packages_arch}/create_dir.txt \
-        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/
+          ${version}/packages/${packages_arch}/ \
+        $user@${fork_url}/
 
-        rm -rf packages/${packages_arch}/create_dir.txt
+        echo "Create targets dir"
+        rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
+            ${version}/targets/${target}/${subtarget}/ \
+        $user@${fork_url}
 
-        # 使用 rsync 上传文件
+        rm -rf ${version}
+
+        
+        # # 使用 rsync 上传文件
         rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           packages/${packages_arch}/ \
-        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/packages/${packages_arch}/
+        $user@${packages_url}
 
-        echo "create dir" > targets/${target}/${subtarget}/create_dir.txt
-        rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-          targets/${target}/${subtarget}/create_dir.txt \
-        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/
-
-        rm -rf targets/${target}/${subtarget}/create_dir.txt
-
+        echo "Upload packages"
         rsync -ahvHP --delete -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
           targets/${target}/${subtarget}/ \
-        $user@frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}/snapshots/targets/${target}/${subtarget}/
+        $user@${targets_url}
                 
         # 清理 SSH 密钥
         rm -f ~/.ssh/sf_key
