@@ -42,6 +42,111 @@ jobs:
             target: mediatek
             subtarget: filogic
             repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: amlogic
+            subtarget: meson8b
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: armsr
+            subtarget: armv8
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: ath79
+            subtarget: nand
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: bcm27xx
+            subtarget: bcm2708
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: bcm27xx
+            subtarget: bcm2709
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: bcm27xx
+            subtarget: bcm2710
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: bcm27xx
+            subtarget: bcm2711
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: bcm27xx
+            subtarget: bcm2712
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: bcm53xx
+            subtarget: generic
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: ipq40xx
+            subtarget: generic
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: ipq806x
+            subtarget: generic
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: mediatek
+            subtarget: mt7622
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: mvebu
+            subtarget: cortexa9
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: qualcommax
+            subtarget: ipq50xx
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: qualcommax
+            subtarget: ipq60xx
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: qualcommax
+            subtarget: ipq807x
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: ramips
+            subtarget: mt7620
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: ramips
+            subtarget: mt76x8
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: sunxi
+            subtarget: cortexa53
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: sunxi
+            subtarget: cortexa7
+            repo: https://github.com/coolsnowwolf/lede
+          - fork-name: Lean
+            branch: master
+            target: x86
+            subtarget: generic
+            repo: https://github.com/coolsnowwolf/lede
           - fork-name: hanwckf
             branch: openwrt-21.02
             target: mediatek
@@ -71,6 +176,111 @@ jobs:
             branch: "24.10"
             target: mediatek
             subtarget: filogic
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: amlogic
+            subtarget: meson8b
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: armsr
+            subtarget: armv8
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: ath79
+            subtarget: nand
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: bcm27xx
+            subtarget: bcm2708
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: bcm27xx
+            subtarget: bcm2709
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: bcm27xx
+            subtarget: bcm2710
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: bcm27xx
+            subtarget: bcm2711
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: bcm27xx
+            subtarget: bcm2712
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: bcm53xx
+            subtarget: generic
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: ipq40xx
+            subtarget: generic
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: ipq806x
+            subtarget: generic
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: mediatek
+            subtarget: mt7622
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: mvebu
+            subtarget: cortexa9
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: qualcommax
+            subtarget: ipq50xx
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: qualcommax
+            subtarget: ipq60xx
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: qualcommax
+            subtarget: ipq807x
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: ramips
+            subtarget: mt7620
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: ramips
+            subtarget: mt76x8
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: sunxi
+            subtarget: cortexa53
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: sunxi
+            subtarget: cortexa7
+            repo: https://github.com/Lienol/openwrt
+          - fork-name: Lienol
+            branch: "24.10"
+            target: x86
+            subtarget: generic
             repo: https://github.com/Lienol/openwrt
           
           # - ath79/nand
@@ -285,6 +495,7 @@ jobs:
       uses: stupidloud/cachewrtbuild@main
       with:
         ccache: 'true'
+        toolchain: 'false'
         mixkey: '${{ matrix.config.fork-name }}-${{ matrix.config.target }}-${{ matrix.config.subtarget }}'
         prefix: 'openwrt'
 
