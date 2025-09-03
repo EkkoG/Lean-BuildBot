@@ -325,7 +325,13 @@ jobs:
         echo "CCACHE_MAXSIZE=8G" >> $GITHUB_ENV
         echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
 
-        echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+        if [ -z "${{ inputs.version }}" ]; then
+          echo "VERSION=SNAPSHOT" >> $GITHUB_ENV
+          echo "FEED_PATH=snapshots" >> $GITHUB_ENV
+        else
+          echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+          echo "FEED_PATH=releases/${{ inputs.version }}" >> $GITHUB_ENV
+        fi
 
     - name: Free disk space
       uses: coder-xiaomo/free-disk-space@main
@@ -374,7 +380,7 @@ jobs:
         echo "CONFIG_DEVEL=y" >> .config
 
         # 启用软件源配置
-        echo "CONFIG_VERSION_REPO=https://downloads.sourceforge.net/project/openwrt-forks-build/${fork_name}/${{ inputs.version }}" >> .config
+        echo "CONFIG_VERSION_REPO=https://downloads.sourceforge.net/project/openwrt-forks-build/${fork_name}/${{ env.FEED_PATH }}" >> .config
 
         # kmods
         echo "CONFIG_ALL_KMODS=y" >> .config
@@ -382,7 +388,7 @@ jobs:
 
         echo "CONFIG_BUILDBOT=y" >> .config
         echo "CONFIG_IB_STANDALONE=" >> .config
-        echo "CONFIG_VERSION_NUMBER=${{ inputs.version }}" >> .config
+        echo "CONFIG_VERSION_NUMBER=${{ env.VERSION }}" >> .config
         
         # 生成完整的默认配置
         make defconfig
@@ -469,26 +475,26 @@ jobs:
         fork_name=${{ matrix.config.fork-name }}
         target=${{ matrix.config.target }}
         subtarget=${{ matrix.config.subtarget }}
-        version=${{ inputs.version }}
+        feed_path=${{ env.FEED_PATH }}
 
-        mkdir -p ${version}/packages/${packages_arch}
-        mkdir -p ${version}/targets/${target}/${subtarget}
+        mkdir -p ${feed_path}/packages/${packages_arch}
+        mkdir -p ${feed_path}/targets/${target}/${subtarget}
 
         fork_url=frs.sourceforge.net:/home/frs/project/openwrt-forks-build/${fork_name}
-        packages_url=${fork_url}/${version}/packages/${packages_arch}/
-        targets_url=${fork_url}/${version}/targets/${target}/${subtarget}/
+        packages_url=${fork_url}/${feed_path}/packages/${packages_arch}/
+        targets_url=${fork_url}/${feed_path}/targets/${target}/${subtarget}/
 
         echo "Create packages dir"
         rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-          ${version}/packages/${packages_arch}/ \
+          ${feed_path}/packages/${packages_arch}/ \
         $user@${fork_url}/
 
         echo "Create targets dir"
         rsync -ahvHP --relative -e "ssh -i ~/.ssh/sf_key -o StrictHostKeyChecking=no" \
-            ${version}/targets/${target}/${subtarget}/ \
+            ${feed_path}/targets/${target}/${subtarget}/ \
         $user@${fork_url}
 
-        rm -rf ${version}
+        rm -rf ${feed_path}
 
         
         # # 使用 rsync 上传文件
