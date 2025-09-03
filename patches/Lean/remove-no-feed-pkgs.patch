@@ -1,0 +1,26 @@
+diff --git a/include/target.mk b/include/target.mk
+index 12e17098e..29d949698 100644
+--- a/include/target.mk
++++ b/include/target.mk
+@@ -57,7 +57,7 @@ DEFAULT_PACKAGES.router:=\
+ 	block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun \
+ 	iptables-mod-tproxy iptables-mod-extra ipset ip-full default-settings luci luci-proto-ipv6 \
+ 	ddns-scripts_aliyun ddns-scripts_dnspod luci-app-ddns luci-app-upnp luci-app-autoreboot \
+-	luci-app-arpbind luci-app-filetransfer luci-app-vsftpd luci-app-ssr-plus luci-app-vlmcsd \
++	luci-app-arpbind luci-app-filetransfer luci-app-vsftpd luci-app-vlmcsd \
+ 	luci-app-accesscontrol luci-app-nlbwmon luci-app-turboacc luci-app-wol curl ca-certificates
+ 
+ ifneq ($(DUMP),)
+diff --git a/target/linux/x86/Makefile b/target/linux/x86/Makefile
+index 9246b971d..07c35e4e7 100644
+--- a/target/linux/x86/Makefile
++++ b/target/linux/x86/Makefile
+@@ -18,7 +18,7 @@ KERNELNAME:=bzImage
+ include $(INCLUDE_DIR)/target.mk
+ 
+ DEFAULT_PACKAGES += partx-utils mkf2fs e2fsprogs kmod-button-hotplug kmod-fs-f2fs kmod-mmc kmod-sdhci kmod-usb-hid amd64-microcode intel-microcode cfdisk \
+-kmod-atlantic kmod-bnx2x kmod-i40e kmod-i40evf kmod-iavf kmod-igb kmod-igbvf kmod-igc kmod-e1000e kmod-pcnet32 kmod-tulip kmod-via-velocity kmod-vmxnet3 \
++kmod-atlantic kmod-bnx2x kmod-i40e kmod-iavf kmod-igb kmod-igbvf kmod-igc kmod-e1000e kmod-pcnet32 kmod-tulip kmod-via-velocity kmod-vmxnet3 \
+ kmod-sound-hda-core kmod-sound-hda-codec-realtek kmod-sound-hda-codec-via kmod-sound-via82xx kmod-sound-hda-intel kmod-sound-hda-codec-hdmi kmod-sound-i8x0 \
+ kmod-usb-net kmod-usb-net-aqc111 kmod-usb-net-asix-ax88179 kmod-usb-net-rtl8150 kmod-mlx4-core kmod-mlx5-core kmod-drm-i915 kmod-drm-amdgpu kmod-usb-audio \
+ kmod-usb-net-rtl8152-vendor kmod-r8125-rss kmod-r8126-rss kmod-r8168 kmod-8139cp kmod-8139too kmod-tg3 lm-sensors autocore-x86 automount autosamba ca-bundle

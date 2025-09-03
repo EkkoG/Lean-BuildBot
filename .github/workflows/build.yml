@@ -351,6 +351,14 @@ jobs:
         latest_commit=$(git rev-parse HEAD)
         echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
 
+    - name: Apply patches
+      working-directory: ./openwrt
+      run: |
+        cd openwrt
+        if [ -d "../patches/${{ matrix.config.fork-name }}" ]; then
+          git apply ../patches/${{ matrix.config.fork-name }}/*.patch
+        fi
+
     - name: Update & Install
       working-directory: ./openwrt
       run: |
@@ -391,6 +399,9 @@ jobs:
 
         echo "CONFIG_BUILDBOT=y" >> .config
         echo "CONFIG_IB_STANDALONE=n" >> .config
+        
+        # 配置签名密钥路径
+        echo "CONFIG_SIGNED_PACKAGES=y" >> .config
 
         echo "补全前配置"
 
@@ -446,6 +457,10 @@ jobs:
 
         echo "${{ secrets.KEY_BUILD }}" > key-build
         cp ../key-build.pub ./key-build.pub
+        
+        # 确保 keys 目录存在并复制公钥
+        mkdir -p keys
+        cp key-build.pub keys/
 
         # APK_SEC_KEY
         echo "${{ secrets.APK_SEC_KEY }}" > private-key.pem
