@@ -1,0 +1,12 @@
+diff --git a/package/system/openwrt-keyring/Makefile b/package/system/openwrt-keyring/Makefile
+index 6c2fa3d108b..20667aa8cf5 100644
+--- a/package/system/openwrt-keyring/Makefile
++++ b/package/system/openwrt-keyring/Makefile
+@@ -40,6 +40,7 @@ define Package/openwrt-keyring/install
+ 	$(INSTALL_DIR) $(1)/etc/opkg/keys/
+ 	# Public usign key for 24.10 release builds
+ 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/usign/d310c6f2833e97f7 $(1)/etc/opkg/keys/
++	$(INSTALL_DATA) $(TOPDIR)/key-build.pub $(1)/etc/opkg/keys/63d73dfc1999a1c8
+ endef
+ endif
+ 
