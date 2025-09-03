@@ -391,9 +391,16 @@ jobs:
 
         echo "CONFIG_BUILDBOT=y" >> .config
         echo "CONFIG_IB_STANDALONE=" >> .config
-        
+
+        echo "补全前配置"
+
+        cat .config
+
         # 生成完整的默认配置
+        echo "生成完整的默认配置"
         make defconfig
+
+        echo "补全后配置"
 
         # BPF
         echo "CONFIG_BPF=y" >> .config
