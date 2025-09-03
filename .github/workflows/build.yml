@@ -380,7 +380,10 @@ jobs:
         echo "CONFIG_DEVEL=y" >> .config
 
         # 启用软件源配置
+        echo "CONFIG_IMAGEOPT=y" >> .config
+        echo "CONFIG_VERSIONOPT=y" >> .config
         echo "CONFIG_VERSION_REPO=https://downloads.sourceforge.net/project/openwrt-forks-build/${fork_name}/${{ env.FEED_PATH }}" >> .config
+        echo "CONFIG_VERSION_NUMBER=${{ env.VERSION }}" >> .config
 
         # kmods
         echo "CONFIG_ALL_KMODS=y" >> .config
@@ -388,7 +391,6 @@ jobs:
 
         echo "CONFIG_BUILDBOT=y" >> .config
         echo "CONFIG_IB_STANDALONE=" >> .config
-        echo "CONFIG_VERSION_NUMBER=${{ env.VERSION }}" >> .config
         
         # 生成完整的默认配置
         make defconfig
