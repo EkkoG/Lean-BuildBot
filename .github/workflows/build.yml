@@ -390,7 +390,7 @@ jobs:
         echo "CONFIG_ALL_NONSHARED=y" >> .config
 
         echo "CONFIG_BUILDBOT=y" >> .config
-        echo "CONFIG_IB_STANDALONE=" >> .config
+        echo "CONFIG_IB_STANDALONE=n" >> .config
 
         echo "补全前配置"
 
