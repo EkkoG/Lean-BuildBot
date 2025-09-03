@@ -354,7 +354,6 @@ jobs:
     - name: Apply patches
       working-directory: ./openwrt
       run: |
-        cd openwrt
         if [ -d "../patches/${{ matrix.config.fork-name }}" ]; then
           git apply ../patches/${{ matrix.config.fork-name }}/*.patch
         fi
