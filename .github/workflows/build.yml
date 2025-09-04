@@ -394,7 +394,8 @@ jobs:
         echo "CONFIG_VERSION_NUMBER=${{ env.VERSION }}" >> .config
         echo "CONFIG_VERSION_FILENAMES=y" >> .config
 
-        # kmods
+        # 构建所有软件包（包括 feeds 中的包）
+        echo "CONFIG_ALL=y" >> .config
         echo "CONFIG_ALL_KMODS=y" >> .config
         echo "CONFIG_ALL_NONSHARED=y" >> .config
 
