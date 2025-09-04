@@ -381,6 +381,7 @@ jobs:
         echo "CONFIG_TARGET_MULTI_PROFILE=y" >> .config
         echo "CONFIG_TARGET_ALL_PROFILES=y" >> .config
         echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y" >> .config
+        echo "CONFIG_TARGET_DEVICE_TYPE_ROUTER=y" >> .config
         
         # 启用 CCACHE
         echo "CONFIG_CCACHE=y" >> .config
